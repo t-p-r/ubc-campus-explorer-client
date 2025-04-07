@@ -56,7 +56,7 @@ export default function UBCMap() {
 						))}
 
 					{Array.from(selectedRooms).map((room, index) => (<Marker key={index} position={[room.lat, room.lon]} icon={selectedIcon}>
-						<Popup>{room.fullname}</Popup>
+						<Popup>{room.shortname} {room.number}</Popup>
 					</Marker>))}
 				</MapContainer>
 			</Box>
