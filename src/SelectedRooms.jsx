@@ -4,31 +4,54 @@ import SelectedRoomsContext from "./SelectedRoomContext";
 import RoomInfoBox from "./RoomInfoBox";
 
 export default function SelectedRooms() {
-	const { selectedRooms, addSelectedRoom } = React.useContext(SelectedRoomsContext);
+	const { selectedRooms } = React.useContext(SelectedRoomsContext);
+	const [distances, setDistances] = React.useState([]);
 
-	const calculateDistance = (lat1, lon1, lat2, lon2) => {
-		return new Promise((resolve, reject) => {
-			const url1 = "https://router.project-osrm.org/route/v1/walking/";
-			const url2 = "?overview=false&alternatives=true&steps=true";
-			const url = `${url1}${lon1},${lat1};${lon2},${lat2}${url2}`;
+	// Courtesy of https://stackoverflow.com/questions/1502590/how-to-calculate-distance-between-two-gps-coordinates
+	// const distance = (lat1, lon1, lat2, lon2) => {
+	// 	const toRadians = (degrees) => (degrees * Math.PI) / 180;
 
-			// fetch directly using the OSRM public API
-			fetch(url)
-				.then((response) => response.json())
-				.then((data) => {
-					if (data.routes && data.routes[0]) {
-						const distanceInMeters = data.routes[0].legs[0].distance;
-						resolve(distanceInMeters);
-					} else {
-						reject("No route found");
-					}
-				})
-				.catch((error) => {
-					console.error("Error calculating route:", error);
-					reject("Error calculating route");
-				});
-		});
-	};
+	// 	const earthRadius = 6371000; // Earth's radius in meters
+
+	// 	const dLat = toRadians(lat2 - lat1);
+	// 	const dLon = toRadians(lon2 - lon1);
+
+	// 	const a =
+	// 		Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+	// 		Math.cos(toRadians(lat1)) * Math.cos(toRadians(lat2)) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
+
+	// 	const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+	// 	return earthRadius * c; // Distance in meters
+	// };
+
+	// React.useEffect(() => {
+	// 	const calculateAllDistances = async () => {
+	// 		let currDistances = [];
+	// 		for (let i = 0; i + 1 < selectedRooms.length; i++) {
+	// 			const room1 = selectedRooms[i];
+	// 			const room2 = selectedRooms[i + 1];
+
+	// 			const meters = distance(room1.lat, room1.lon, room2.lat, room2.lon);
+	// 			// Converting using average walking speed of 80m / minute
+	// 			const metersPerMinute = 80;
+	// 			let minutes = Math.round(meters / metersPerMinute);
+
+	// 			if (minutes === 0) {
+	// 				minutes = 4; // shortcut... rough estimate for same building distance
+	// 			}
+
+	// 			currDistances.push({
+	// 				room1,
+	// 				room2,
+	// 				time: minutes,
+	// 			});
+	// 		}
+	// 		setDistances(currDistances);
+	// 	};
+
+	// 	calculateAllDistances();
+	// }, [selectedRooms]); // rerun when selectedRooms changes
 
 	return (
 		<Box>

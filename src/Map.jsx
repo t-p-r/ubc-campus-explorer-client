@@ -30,8 +30,8 @@ export default function UBCMap() {
 
 	const selectedIcon = new L.Icon({	
 		iconUrl: "https://cdn.iconscout.com/icon/free/png-256/free-map-marker-icon-download-in-svg-png-gif-file-formats--location-pin-pointer-user-interface-pack-icons-2700108.png?f=webp&w=256",
-		iconSize: [36, 36],
-		iconAnchor: [18, 36],
+		iconSize: [48,48],
+		iconAnchor: [24, 48],
 		popupAnchor: [1, -36]
 	});
 
