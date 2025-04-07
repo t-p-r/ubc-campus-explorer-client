@@ -35,9 +35,9 @@ function RoomInfoBox({ room, selectedMode, width }) {
 
 			{!selectedMode && (
 				<Box mt={0.4} width="50%">
-					<Typography>Building name: {room.fullname}</Typography>
-					<Typography>Address: {room.address}</Typography>
-					<Typography>Capacity: {room.seats}</Typography>
+					<Typography>building: <em>{room.fullname}</em></Typography>
+					<Typography>address: {room.address}</Typography>
+					<Typography>capacity: {room.seats}</Typography>
 					{/* <Typography>lat: {room.lat}</Typography>
 				<Typography>lon: {room.lon}</Typography> */}
 				</Box>
