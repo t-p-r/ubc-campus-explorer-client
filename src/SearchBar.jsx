@@ -1,71 +1,42 @@
 import { Typography, TextField, Button, Box } from "@mui/material";
 import RoomInfoBox from "./RoomInfoBox";
-import React, { createContext, useContext, useState } from "react";
+import React from "react";
 
-const BACKEND_URL = "http://localhost:4321";
+import allRooms from "./rooms.jsx";
 
 export default class SearchComponent extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			searchTerm: "",
 			searchRooms: [],
 			displayLimit: 5,
 			firstSearch: false,
 		};
 	}
 
-	handleSearch = async () => {
+	handleSearch = (keyword) => {
+		if (!keyword) {
+			this.setState({ searchRooms: allRooms, firstSearch: false });
+			return;
+		}
+
 		this.setState({ firstSearch: true });
 
-		const searchQuery = {
-			WHERE: {
-				IS: { rooms_shortname: `*${this.state.searchTerm.toLocaleUpperCase()}*` },
-			},
-			OPTIONS: {
-				COLUMNS: [
-					"rooms_name",
-					"rooms_fullname",
-					"rooms_shortname",
-					"rooms_number",
-					"rooms_address",
-					"rooms_seats",
-					"rooms_lat",
-					"rooms_lon",
-				],
-				ORDER: "rooms_name",
-			},
-		};
+		const filteredRooms = allRooms.filter((room) => {
+			const roomName = room.shortname.toLowerCase();
+			const searchTerm = keyword.toLowerCase();
+			return roomName.includes(searchTerm);
+		});
 
-		try {
-			const response = await fetch(BACKEND_URL + "/query", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify(searchQuery),
-			});
-
-			if (!response.ok) {
-				alert(`Warning: ${response.status}.`);
-			}
-
-			const data = await response.json();
-			const filteredRooms = data.result;
-
-			this.setState({ searchRooms: filteredRooms });
-		} catch (error) {
-			console.error("Error fetching room count:", error);
-		}
+		this.setState({ searchRooms: filteredRooms });
 	};
 
 	componentDidMount() {
-		// instantiate rooms
 		if (!this.firstSearch) this.handleSearch();
 	}
 
 	handleInputChange = (event) => {
-		this.setState({ searchTerm: event.target.value });
+		this.handleSearch(event.target.value);
 	};
 
 	render() {
@@ -93,13 +64,13 @@ export default class SearchComponent extends React.Component {
 						<RoomInfoBox
 							key={index}
 							room={{
-								fullname: room.rooms_fullname,
-								shortname: room.rooms_shortname,
-								number: room.rooms_number,
-								address: room.rooms_address,
-								seats: room.rooms_seats,
-								lat: room.rooms_lat,
-								lon: room.rooms_lon,
+								fullname: room.fullname,
+								shortname: room.shortname,
+								number: room.number,
+								address: room.address,
+								seats: room.seats,
+								lat: room.lat,
+								lon: room.lon,
 							}}
 							selectedMode={false}
 						/>

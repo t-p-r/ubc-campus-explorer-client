@@ -1,4 +1,4 @@
-[
+const allRooms = [
 	{
 		"fullname": "Allard Hall (LAW)",
 		"shortname": "ALRD",
@@ -4732,3 +4732,5 @@
 		"href": "[object Object]"
 	}
 ]
+
+export default allRooms;

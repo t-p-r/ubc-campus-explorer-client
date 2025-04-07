@@ -5,24 +5,34 @@ import "leaflet-routing-machine/dist/leaflet-routing-machine.css";
 import "leaflet-routing-machine";
 import L from "leaflet";
 
-export default function UBCMap({ rooms }) {
+import allRooms from "./rooms.jsx";
+import SelectedRoomsContext from "./SelectedRoomContext.jsx";
+
+export default function UBCMap() {
 	const [showMarkers, setShowMarkers] = React.useState(false);
-	
+	const { selectedRooms } = React.useContext(SelectedRoomsContext);
+
 	const buildings = new Map();
-	for (const room of rooms) {
-		buildings.set(room.rooms_shortname, room);
+	for (const room of allRooms) {
+		buildings.set(room.shortname, room);
 	}
 
 	const handleCheckboxChange = (e) => {
 		setShowMarkers(e.target.checked);
 	};
 
-	const onlineIcon = new L.Icon({
+	const defaultIcon = new L.Icon({
 		iconUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Map_marker.svg/156px-Map_marker.svg.png",
-		iconSize: [25, 41],
+		iconSize: [25, 36],
 		iconAnchor: [12, 41],
-		popupAnchor: [1, -34],
-		shadowSize: [41, 41],
+		popupAnchor: [1, -42]
+	});
+
+	const selectedIcon = new L.Icon({	
+		iconUrl: "https://cdn.iconscout.com/icon/free/png-256/free-map-marker-icon-download-in-svg-png-gif-file-formats--location-pin-pointer-user-interface-pack-icons-2700108.png?f=webp&w=256",
+		iconSize: [36, 36],
+		iconAnchor: [18, 36],
+		popupAnchor: [1, -36]
 	});
 
 	return (
@@ -40,10 +50,14 @@ export default function UBCMap({ rooms }) {
 					/>
 					{showMarkers &&
 						Array.from(buildings.values()).map((room, index) => (
-							<Marker key={index} position={[room.rooms_lat, room.rooms_lon]} icon={onlineIcon}>
-								<Popup>{room.rooms_fullname}</Popup>
+							<Marker key={index} position={[room.lat, room.lon]} icon={defaultIcon}>
+								<Popup>{room.fullname}</Popup>
 							</Marker>
 						))}
+
+					{Array.from(selectedRooms).map((room, index) => (<Marker key={index} position={[room.lat, room.lon]} icon={selectedIcon}>
+						<Popup>{room.fullname}</Popup>
+					</Marker>))}
 				</MapContainer>
 			</Box>
 		</Box>
