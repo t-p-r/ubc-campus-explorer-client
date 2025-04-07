@@ -20,21 +20,21 @@ export default function Header() {
 					<IconButton
 						color="inherit"
 						component="a"
-						href="https://github.students.cs.ubc.ca/CPSC310-2024W-T2/project_team309"
+						href="https://github.com/t-p-r/ubc-campus-explorer"
 						target="_blank"
 						rel="noopener noreferrer"
 					>
 						<GitHubIcon />
 					</IconButton>
-					<IconButton
+					{/* <IconButton
 						color="inherit"
 						component="a"
-						href="https://www.linkedin.com"
+						href="https://www.linkedin.com/in/trung-quan-nguyen/"
 						target="_blank"
 						rel="noopener noreferrer"
 					>
 						<LinkedInIcon />
-					</IconButton>
+					</IconButton> */}
 				</Box>
 			</Toolbar>
 		</AppBar>
