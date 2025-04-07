@@ -40,7 +40,7 @@ export default class SearchComponent extends React.Component {
 	};
 
 	render() {
-		const { searchTerm, searchRooms, displayLimit, firstSearch } = this.state;
+		const { searchTerm, searchRooms, displayLimit } = this.state;
 
 		return (
 			<Box>
@@ -55,9 +55,6 @@ export default class SearchComponent extends React.Component {
 							input: { style: { borderRadius: "12px" } },
 						}}
 					/>
-					<Button variant="contained" onClick={this.handleSearch}>
-						Apply
-					</Button>
 				</Box>
 				<Box padding={1}>
 					{searchRooms.slice(0, displayLimit).map((room, index) => (
