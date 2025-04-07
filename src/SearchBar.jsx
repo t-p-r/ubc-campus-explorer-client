@@ -53,7 +53,7 @@ export default class SearchComponent extends React.Component {
 						onChange={this.handleInputChange}
 						fullWidth
 						slotProps={{
-							input: { style: { borderRadius: "12px" } },
+							input: { style: { borderRadius: "32px" } },
 						}}
 					/>
 				</Box>

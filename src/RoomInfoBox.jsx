@@ -14,7 +14,7 @@ function RoomInfoBox({ room, selectedMode, width }) {
 	return (
 		<Box
 			borderColor="black"
-			borderRadius={4}
+			borderRadius={3}
 			border={3}
 			p={1}
 			display="flex"
