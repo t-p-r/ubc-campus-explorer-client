@@ -24,8 +24,9 @@ export default class SearchComponent extends React.Component {
 
 		const filteredRooms = allRooms.filter((room) => {
 			const roomName = room.shortname.toLowerCase();
+			const buildingName = room.fullname.toLowerCase();
 			const searchTerm = keyword.toLowerCase();
-			return roomName.includes(searchTerm);
+			return roomName.includes(searchTerm) || buildingName.includes(searchTerm);
 		});
 
 		this.setState({ searchRooms: filteredRooms });
@@ -47,7 +48,7 @@ export default class SearchComponent extends React.Component {
 				<Box display="flex" gap={2} alignItems="center" p={1}>
 					<TextField
 						variant="outlined"
-						label="Enter room name"
+						label="Enter building name"
 						value={searchTerm}
 						onChange={this.handleInputChange}
 						fullWidth
