@@ -8,6 +8,7 @@ import UBCMap from "./Map";
 import SelectedRooms from "./SelectedRooms";
 import { ThemeProvider } from "@mui/material/styles";
 import defaultTheme from "./Theme.jsx";
+import MapComponent from "./WalkingDistance.jsx"
 
 export default class App extends React.Component {
 	constructor(props) {
@@ -31,9 +32,9 @@ export default class App extends React.Component {
 								<Box p={2}>
 									<SelectedRooms />
 								</Box>
-								{/* <Box p={2}>
-								<MapComponent />
-							</Box> */}
+								<Box p={2}>
+									<MapComponent />
+								</Box>
 							</Box>
 							<Box flex={1} p={1} mt={4.3}>
 								<SearchComponent />

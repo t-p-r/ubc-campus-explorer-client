@@ -44,7 +44,7 @@ export default class SearchComponent extends React.Component {
 		const { searchTerm, searchRooms, displayLimit } = this.state;
 
 		return (
-			<Box>
+			<Box mt={-0.8}>
 				<Box display="flex" gap={2} alignItems="center" p={1}>
 					<TextField
 						variant="outlined"

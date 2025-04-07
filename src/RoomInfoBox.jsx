@@ -34,7 +34,7 @@ function RoomInfoBox({ room, selectedMode, width }) {
 			</Box>
 
 			{!selectedMode && (
-				<Box mt={0.4} width="50%">
+				<Box mt={0.4} width="60%">
 					<Typography>building: <em>{room.fullname}</em></Typography>
 					<Typography>address: {room.address}</Typography>
 					<Typography>capacity: {room.seats}</Typography>
@@ -43,10 +43,13 @@ function RoomInfoBox({ room, selectedMode, width }) {
 				</Box>
 			)}
 
-			<Box flexGrow={1} />
+			{!selectedMode && (
+				<Box flexGrow={1} />
+			)}
+
 
 			{selectedMode ? (
-				<Box display="flex" justifyContent="center" alignItems="center" flexGrow={1}>
+				<Box display="flex" justifyContent="center" alignItems="center" mt={-0.4} flexGrow={1}>
 					<IconButton
 						onClick={() => setSelectedRooms(selectedRooms.filter((r) => r !== room))}
 						variant="text"

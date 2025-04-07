@@ -36,9 +36,9 @@ export default function UBCMap() {
 	});
 
 	return (
-		<Box p={1}>
+		<Box p={1} mt={-0.8}>
 			<Box display="flex" alignItems="center">
-				<Typography>show all {buildings.size} buildings as markers</Typography>
+				<Typography>mark all {buildings.size} buildings</Typography>
 				<Checkbox checked={showMarkers} onChange={handleCheckboxChange} />
 			</Box>
 			<Box height="70vh">

@@ -3,9 +3,12 @@ import React, { useContext, useEffect, useState } from "react";
 import "leaflet-routing-machine";
 import "leaflet-routing-machine/dist/leaflet-routing-machine.css";
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
+import { BorderAll } from "@mui/icons-material";
 
 // This is for estimating the rough walking distance between selected rooms
 // Using Leaflet's Open Source Routing Machine API
+
+const MIN_WALKING_TIME = 3; // minutes
 
 function MapComponent() {
 	const { selectedRooms } = useContext(SelectedRoomsContext);
@@ -42,14 +45,11 @@ function MapComponent() {
 						const meters = distance(room1.lat, room1.lon, room2.lat, room2.lon);
 						// Converting using average walking speed of 80m / minute
 						const metersPerMinute = 80;
-						let minutes = Math.round(meters / metersPerMinute);
+						let minutes = Math.max(Math.round(meters / metersPerMinute), MIN_WALKING_TIME);
 
-						if (minutes === 0) {
-							minutes = 4; // shortcut... rough estimate for same building distance
-						}
 						currDistances.push({
-							from: room1.fullname,
-							to: room2.fullname,
+							from: `${room1.shortname} ${room1.number}`,
+							to: `${room2.shortname} ${room2.number}`,
 							time: minutes,
 						});
 					} catch (error) {
@@ -62,12 +62,12 @@ function MapComponent() {
 		calculateAllDistances();
 	}, [selectedRooms]); // rerun when selectedRooms changes
 
-	return (
+	return distances.length ? (
 		<div>
 			<Typography variant="h5" gutterBottom mt={-1.5}>
 				WALKING DISTANCES:
 			</Typography>
-			<TableContainer component={Paper}>
+			<TableContainer component={Paper} sx={{ border: 3, borderRadius: 3, overflow: "hidden" }}>
 				<Table>
 					<TableHead>
 						<TableRow>
@@ -88,7 +88,7 @@ function MapComponent() {
 				</Table>
 			</TableContainer>
 		</div>
-	);
+	) : null;
 }
 
 export default MapComponent;
