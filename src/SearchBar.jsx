@@ -83,7 +83,7 @@ export default class SearchComponent extends React.Component {
 						style={{ cursor: "pointer", textDecoration: "none", color: "#004AAD" }}
 						onMouseEnter={(e) => (e.target.style.textDecoration = "underline")}
 						onMouseLeave={(e) => (e.target.style.textDecoration = "none")}
-						onClick={() => setDisplayLimit(displayLimit === 5 ? 10 : 5)}
+						onClick={() => this.setState({ displayLimit: displayLimit === 5 ? 10 : 5 })}
 					>
 						first {displayLimit === 5 ? 10 : 5} |
 					</Typography>
@@ -93,7 +93,7 @@ export default class SearchComponent extends React.Component {
 						style={{ cursor: "pointer", textDecoration: "none", color: "#004AAD" }}
 						onMouseEnter={(e) => (e.target.style.textDecoration = "underline")}
 						onMouseLeave={(e) => (e.target.style.textDecoration = "none")}
-						onClick={() => setDisplayLimit(25)}
+						onClick={() => this.setState({ displayLimit: 25 })}
 					>
 						first 25 |
 					</Typography>
@@ -103,7 +103,7 @@ export default class SearchComponent extends React.Component {
 						style={{ cursor: "pointer", textDecoration: "none", color: "#004AAD" }}
 						onMouseEnter={(e) => (e.target.style.textDecoration = "underline")}
 						onMouseLeave={(e) => (e.target.style.textDecoration = "none")}
-						onClick={() => setDisplayLimit(searchRooms.length)}
+						onClick={() => this.setState({ displayLimit: searchRooms.length })}
 					>
 						all {searchRooms.length} rooms
 					</Typography>
