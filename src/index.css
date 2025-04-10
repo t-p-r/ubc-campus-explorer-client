@@ -1,3 +1,13 @@
+/* Specifies some React and Material-agnostic variables */
+
 body {
 	margin: 0;
+}
+
+@font-face {
+	font-family: "Open Sans";
+	src:
+		url('./fonts/OpenSans-Regular.ttf') format('truetype'),
+		url('./fonts/OpenSans-Bold.ttf') format('truetype'),
+		url('./fonts/OpenSans-Italic.ttf') format('truetype');
 }
