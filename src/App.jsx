@@ -29,14 +29,16 @@ export default class App extends React.Component {
 								<Box>
 									<UBCMap />
 								</Box>
-								<Box p={2}>
-									<SelectedRooms />
-								</Box>
-								<Box p={2}>
-									<MapComponent />
+								<Box display="flex" mt={0.5} marginLeft={0.5}>
+									<Box padding={1} width="50%">
+										<SelectedRooms />
+									</Box>
+									<Box padding={1} width="50%">
+										<MapComponent />
+									</Box>
 								</Box>
 							</Box>
-							<Box flex={1} p={1} mt={4.3}>
+							<Box flex={1} p={0}>
 								<SearchComponent />
 							</Box>
 						</Box>
