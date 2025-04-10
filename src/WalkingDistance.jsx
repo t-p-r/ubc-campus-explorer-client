@@ -3,7 +3,6 @@ import React, { useContext, useEffect, useState } from "react";
 import "leaflet-routing-machine";
 import "leaflet-routing-machine/dist/leaflet-routing-machine.css";
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
-import { BorderAll } from "@mui/icons-material";
 
 // This is for estimating the rough walking distance between selected rooms
 // Using Leaflet's Open Source Routing Machine API
