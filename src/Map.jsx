@@ -28,9 +28,9 @@ export default function UBCMap() {
 		popupAnchor: [1, -42]
 	});
 
-	const selectedIcon = new L.Icon({	
+	const selectedIcon = new L.Icon({
 		iconUrl: "https://cdn.iconscout.com/icon/free/png-256/free-map-marker-icon-download-in-svg-png-gif-file-formats--location-pin-pointer-user-interface-pack-icons-2700108.png?f=webp&w=256",
-		iconSize: [48,48],
+		iconSize: [48, 48],
 		iconAnchor: [24, 48],
 		popupAnchor: [1, -36]
 	});
@@ -48,6 +48,7 @@ export default function UBCMap() {
 						url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
 						attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 					/>
+
 					{showMarkers &&
 						Array.from(buildings.values()).map((room, index) => (
 							<Marker key={index} position={[room.lat, room.lon]} icon={defaultIcon}>

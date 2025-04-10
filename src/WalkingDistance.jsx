@@ -34,7 +34,7 @@ function MapComponent() {
 	};
 
 	useEffect(() => {
-		const calculateAllDistances = async () => {
+		const calculateAllDistances = () => {
 			let currDistances = [];
 			for (let i = 0; i < selectedRooms.length; i++)
 				for (let j = i + 1; j < selectedRooms.length; j++) {

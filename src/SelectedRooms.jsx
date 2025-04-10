@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Typography } from "@mui/material";
 import SelectedRoomsContext from "./SelectedRoomContext";
-import RoomInfoBox from "./RoomInfoBox";
+import SelectedRoomBox from "./SelectedRoomBox";
 
 export default function SelectedRooms() {
 	const { selectedRooms } = React.useContext(SelectedRoomsContext);
@@ -60,7 +60,7 @@ export default function SelectedRooms() {
 			</Typography>
 			<Box display="flex" flexDirection="row" gap={1}>
 				{selectedRooms.map((room) => (
-					<RoomInfoBox key={room.shortname + room.number} room={room} selectedMode={true} />
+					<SelectedRoomBox key={room.shortname + room.number} room={room}/>
 				))}
 			</Box>
 		</Box>

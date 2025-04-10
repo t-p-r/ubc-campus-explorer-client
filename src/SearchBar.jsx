@@ -70,7 +70,6 @@ export default class SearchComponent extends React.Component {
 								lat: room.lat,
 								lon: room.lon,
 							}}
-							selectedMode={false}
 						/>
 					))}
 				</Box>
