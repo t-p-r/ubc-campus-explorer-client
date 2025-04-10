@@ -1,25 +1,20 @@
 import React from "react";
 import { Box, Typography, Checkbox } from "@mui/material";
-import { MapContainer, TileLayer, Popup, Marker } from "react-leaflet";
-import "leaflet-routing-machine/dist/leaflet-routing-machine.css";
-import "leaflet-routing-machine";
+import { MapContainer, TileLayer, Popup, Marker, Polyline, LayersControl, LayerGroup } from "react-leaflet";
+// import "leaflet-routing-machine/dist/leaflet-routing-machine.css";
+// import "leaflet-routing-machine";
 import L from "leaflet";
 
 import allRooms from "./rooms.jsx";
 import SelectedRoomsContext from "./SelectedRoomContext.jsx";
 
 export default function UBCMap() {
-	const [showMarkers, setShowMarkers] = React.useState(false);
 	const { selectedRooms } = React.useContext(SelectedRoomsContext);
 
 	const buildings = new Map();
 	for (const room of allRooms) {
 		buildings.set(room.shortname, room);
 	}
-
-	const handleCheckboxChange = (e) => {
-		setShowMarkers(e.target.checked);
-	};
 
 	const defaultIcon = new L.Icon({
 		iconUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Map_marker.svg/156px-Map_marker.svg.png",
@@ -36,31 +31,34 @@ export default function UBCMap() {
 	});
 
 	return (
-		<Box p={1} mt={-0.8}>
-			<Box display="flex" alignItems="center">
-				<Typography>mark all {buildings.size} buildings</Typography>
-				<Checkbox checked={showMarkers} onChange={handleCheckboxChange} />
-			</Box>
-			<Box height="70vh">
-				<MapContainer center={[49.2606, -123.246]} zoom={14} style={{ height: "100%", width: "100%" }}>
-					<TileLayer
-						key="tileLayer"
-						url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-						attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-					/>
+		<Box p={1} height="70vh">
+			<MapContainer center={[49.2606, -123.246]} zoom={14} style={{ height: "100%", width: "100%" }}>
+				<LayersControl position="topright">
+					<LayersControl.Overlay name="Show all buildings">
+						<LayerGroup>
+							{Array.from(buildings.values()).map((room, index) => (
+								<Marker key={index} position={[room.lat, room.lon]} icon={defaultIcon}>
+									<Popup>{room.fullname}</Popup>
+								</Marker>
+							))}
+						</LayerGroup>
+					</LayersControl.Overlay>
+				</LayersControl>
 
-					{showMarkers &&
-						Array.from(buildings.values()).map((room, index) => (
-							<Marker key={index} position={[room.lat, room.lon]} icon={defaultIcon}>
-								<Popup>{room.fullname}</Popup>
-							</Marker>
-						))}
+				<TileLayer
+					key="tileLayer"
+					url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+					attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+				/>
 
-					{Array.from(selectedRooms).map((room, index) => (<Marker key={index} position={[room.lat, room.lon]} icon={selectedIcon}>
+				{Array.from(selectedRooms).map((room, index) => (
+					<Marker key={index} position={[room.lat, room.lon]} icon={selectedIcon}>
 						<Popup>{room.shortname} {room.number}</Popup>
-					</Marker>))}
-				</MapContainer>
-			</Box>
+					</Marker>
+				))}
+
+				<Polyline positions={Array.from(selectedRooms).map((room) => [room.lat, room.lon])}></Polyline>
+			</MapContainer>
 		</Box>
 	);
 }
