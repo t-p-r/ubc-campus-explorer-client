@@ -34,31 +34,41 @@ export default function UBCMap() {
 		buildings.set(room.shortname, room);
 	}
 
-	const defaultIcon = new L.Icon({
-		iconUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Map_marker.svg/156px-Map_marker.svg.png",
-		iconSize: [25, 36],
-		iconAnchor: [12, 41],
-		popupAnchor: [1, -42]
-	});
+	function defaultIcon(building) {
+		return new L.DivIcon({
+			className: 'my-div-icon',
+			html: `
+				<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 48 48">
+					<circle cx="24" cy="24" r="24" fill="#002145" />
+					<text x="50%" y="50%" text-anchor="middle" dy=".3em" fill="white" font-size="14" font-weight="bold">
+						${building}
+					</text>
+				</svg>
+			`,
+
+			iconAnchor: [18, 36],
+			popupAnchor: [1, -30]
+		});
+	}
 
 	function selectedIcon(building, number) {
 		return new L.DivIcon({
 			className: 'my-div-icon',
 			html: `
-				<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48">
+				<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 48 48">
 					<circle cx="24" cy="24" r="24" fill="#002145" />
-					<text x="50%" y="35%" text-anchor="middle" dy=".3em" fill="white" font-size="12" font-weight="bold">
+					<text x="50%" y="35%" text-anchor="middle" dy=".3em" fill="white" font-size="14" font-weight="bold">
 						${building}
 					</text>
 
-					<text x="50%" y="75%" text-anchor="middle" dy=".3em" fill="white" font-size="12" font-weight="bold">
+					<text x="50%" y="75%" text-anchor="middle" dy=".3em" fill="white" font-size="14" font-weight="bold">
 						${number}
 					</text>
 				</svg>
 			`,
-			
-			iconAnchor: [24, 48],
-			popupAnchor: [1, -36]
+
+			iconAnchor: [18, 36],
+			popupAnchor: [1, -30]
 		});
 	}
 
@@ -69,9 +79,7 @@ export default function UBCMap() {
 					<LayersControl.Overlay name="Show all buildings">
 						<LayerGroup>
 							{Array.from(buildings.values()).map((room, index) => (
-								<Marker key={index} position={[room.lat, room.lon]} icon={defaultIcon}>
-									<Popup>{room.fullname}</Popup>
-								</Marker>
+								<Marker key={index} position={[room.lat, room.lon]} icon={defaultIcon(room.shortname)}></Marker>
 							))}
 						</LayerGroup>
 					</LayersControl.Overlay>
@@ -86,8 +94,7 @@ export default function UBCMap() {
 				<RenderRoutes />
 
 				{Array.from(selectedRooms).map((room, index) => (
-					<Marker key={index} position={[room.lat, room.lon]} icon={selectedIcon(room.shortname, room.number)}>
-					</Marker>
+					<Marker key={index} position={[room.lat, room.lon]} icon={selectedIcon(room.shortname, room.number)}></Marker>
 				))}
 			</MapContainer>
 		</Box>
