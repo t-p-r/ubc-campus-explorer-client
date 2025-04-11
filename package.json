@@ -12,6 +12,8 @@
 	"dependencies": {
 		"@emotion/react": "^11.14.0",
 		"@emotion/styled": "^11.14.0",
+		"@fontsource/inter": "^5.2.5",
+		"@fontsource/open-sans": "^5.2.5",
 		"@mui/icons-material": "^7.0.1",
 		"@mui/material": "^7.0.1",
 		"leaflet": "^1.9.4",
@@ -21,8 +23,8 @@
 		"react-leaflet": "^5.0.0"
 	},
 	"devDependencies": {
-		"@tsconfig/node23": "23.0.0",
 		"@eslint/js": "^9.21.0",
+		"@tsconfig/node23": "23.0.0",
 		"@types/react": "^19.0.10",
 		"@types/react-dom": "^19.0.4",
 		"@vitejs/plugin-react": "^4.3.4",
