@@ -1,5 +1,5 @@
 import React from "react";
-import { Typography, Button, Box } from "@mui/material";
+import { Typography, Box } from "@mui/material";
 import SelectedRoomsContext from "./SelectedRoomContext";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import IconButton from "@mui/material/IconButton";
@@ -9,7 +9,7 @@ function SelectedRoomBox({ room, width }) {
 		return null;
 	}
 
-	const { selectedRooms, addSelectedRoom, setSelectedRooms } = React.useContext(SelectedRoomsContext);
+	const { selectedRooms, setSelectedRooms } = React.useContext(SelectedRoomsContext);
 
 	return (
 		<Box

@@ -1,5 +1,4 @@
 import { AppBar, Toolbar, Box, Typography, IconButton } from "@mui/material";
-import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import GitHubIcon from "@mui/icons-material/GitHub";
 
 export default function Header() {

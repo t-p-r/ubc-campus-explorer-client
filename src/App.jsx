@@ -8,7 +8,6 @@ import UBCMap from "./Map";
 import SelectedRooms from "./SelectedRooms";
 import { ThemeProvider } from "@mui/material/styles";
 import defaultTheme from "./Theme.jsx";
-import MapComponent from "./WalkingDistance.jsx"
 
 export default class App extends React.Component {
 	constructor(props) {

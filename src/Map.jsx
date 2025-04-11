@@ -1,6 +1,6 @@
 import React from "react";
 import { Box } from "@mui/material";
-import { MapContainer, TileLayer, Popup, Marker, LayersControl, LayerGroup, useMap } from "react-leaflet";
+import { MapContainer, TileLayer, Marker, LayersControl, LayerGroup, useMap } from "react-leaflet";
 import "leaflet-routing-machine/dist/leaflet-routing-machine.css";
 import "leaflet-routing-machine";
 import L from "leaflet";
@@ -60,7 +60,6 @@ export default function UBCMap() {
 					<text x="50%" y="35%" text-anchor="middle" dy=".3em" fill="white" font-size="14" font-weight="bold">
 						${building}
 					</text>
-
 					<text x="50%" y="75%" text-anchor="middle" dy=".3em" fill="white" font-size="14" font-weight="bold">
 						${number}
 					</text>

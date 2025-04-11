@@ -1,8 +1,6 @@
 import React from "react";
 import { Typography, Button, Box } from "@mui/material";
 import SelectedRoomsContext from "./SelectedRoomContext";
-import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
-import IconButton from "@mui/material/IconButton";
 
 function RoomInfoBox({ room, width }) {
 	if (!room) {
