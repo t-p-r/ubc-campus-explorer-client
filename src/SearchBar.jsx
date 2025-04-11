@@ -4,12 +4,13 @@ import React from "react";
 
 import allRooms from "./rooms.jsx";
 
+const DISPLAY_LIMIT = 5;
 export default class SearchComponent extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			searchRooms: [],
-			displayLimit: 5,
+			displayFrom: 0,
 			firstSearch: false,
 		};
 	}
@@ -40,16 +41,25 @@ export default class SearchComponent extends React.Component {
 		this.handleSearch(event.target.value);
 	};
 
+	changeDisplayButton = (text, func) => {
+		return (
+			<Button onClick={func} variant="text" color="primary">
+				<Typography variant="h6" fontWeight="bold">
+					{text}
+				</Typography>
+			</Button>
+		);
+	}
+
 	render() {
-		const { searchTerm, searchRooms, displayLimit } = this.state;
+		const { searchRooms, displayFrom } = this.state;
 
 		return (
 			<Box>
-				<Box display="flex" alignItems="center" p={1}>
+				<Box display="flex" alignItems="center" p={1} marginInlineEnd={1.8}>
 					<TextField
 						variant="outlined"
 						label="Enter building name"
-						value={searchTerm}
 						onChange={this.handleInputChange}
 						fullWidth
 						slotProps={{
@@ -57,8 +67,37 @@ export default class SearchComponent extends React.Component {
 						}}
 					/>
 				</Box>
+
+				<Box display="flex" gap={0.5} justifyContent="center">
+					{this.changeDisplayButton(
+						`<<`,
+						() => this.setState({ displayFrom: 0 })
+					)}
+
+					{this.changeDisplayButton(
+						`<`,
+						() => this.setState({ displayFrom: Math.max(displayFrom - DISPLAY_LIMIT, 0) })
+					)}
+
+					<Box display="flex" alignItems="center">
+						<Typography>
+							{displayFrom + 1} - {Math.min(displayFrom + DISPLAY_LIMIT, searchRooms.length)} of {searchRooms.length}
+						</Typography>
+					</Box>
+
+					{this.changeDisplayButton(
+						`>`,
+						() => this.setState({ displayFrom: (displayFrom + DISPLAY_LIMIT < searchRooms.length ? displayFrom + DISPLAY_LIMIT : displayFrom) })
+					)}
+
+					{this.changeDisplayButton(
+						`>>`,
+						() => this.setState({ displayFrom: searchRooms.length - (searchRooms.length % DISPLAY_LIMIT) })
+					)}
+				</Box>
+
 				<Box padding={1}>
-					{searchRooms.slice(0, displayLimit).map((room, index) => (
+					{searchRooms.slice(displayFrom, displayFrom + DISPLAY_LIMIT).map((room, index) => (
 						<RoomInfoBox
 							key={index}
 							room={{
@@ -73,54 +112,8 @@ export default class SearchComponent extends React.Component {
 						/>
 					))}
 				</Box>
-				<Box display="flex" gap={0.5} justifyContent="center" mt={-2}>
-					<Typography variant="body1" component="a" color="#004AAD">
-						show:
-					</Typography>
-					<Typography
-						variant="body1"
-						component="a"
-						style={{ cursor: "pointer", textDecoration: "none", color: "#004AAD" }}
-						onMouseEnter={(e) => (e.target.style.textDecoration = "underline")}
-						onMouseLeave={(e) => (e.target.style.textDecoration = "none")}
-						onClick={() => this.setState({ displayLimit: displayLimit === 5 ? 10 : 5 })}
-					>
-						first {displayLimit === 5 ? 10 : 5} |
-					</Typography>
-					<Typography
-						variant="body1"
-						component="a"
-						style={{ cursor: "pointer", textDecoration: "none", color: "#004AAD" }}
-						onMouseEnter={(e) => (e.target.style.textDecoration = "underline")}
-						onMouseLeave={(e) => (e.target.style.textDecoration = "none")}
-						onClick={() => this.setState({ displayLimit: 25 })}
-					>
-						first 25 |
-					</Typography>
-					<Typography
-						variant="body1"
-						component="a"
-						style={{ cursor: "pointer", textDecoration: "none", color: "#004AAD" }}
-						onMouseEnter={(e) => (e.target.style.textDecoration = "underline")}
-						onMouseLeave={(e) => (e.target.style.textDecoration = "none")}
-						onClick={() => this.setState({ displayLimit: searchRooms.length })}
-					>
-						all {searchRooms.length} rooms
-					</Typography>
-				</Box>
+
 			</Box>
 		);
 	}
 }
-
-// export default function SearchBar({ rooms }) {
-// 	const [state, setState] = useState({
-// 		rooms,
-// 	});
-
-// 	return (
-// 		<SearchBarContext.Provider value={{ state, setState }}>
-// 			<SearchBarObj rooms={rooms} />
-// 		</SearchBarContext.Provider>
-// 	);
-// }
