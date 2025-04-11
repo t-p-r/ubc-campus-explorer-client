@@ -5,6 +5,8 @@ const SelectedRoomsContext = createContext({
 	setSelectedRooms: () => {},
 });
 
+const SELECT_LIMIT = 8;
+
 export function SelectedRoomsProvider({ children }) {
 	const [selectedRooms, setSelectedRooms] = useState([]);
 
@@ -13,8 +15,8 @@ export function SelectedRoomsProvider({ children }) {
 			alert("This room is already selected!");
 			return;
 		}
-		if (selectedRooms.length === 5) {
-			alert("You can only select up to 5 rooms!");
+		if (selectedRooms.length === SELECT_LIMIT) {
+			alert(`You can only select up to ${SELECT_LIMIT} rooms!`);
 			return;
 		}
 		setSelectedRooms([...selectedRooms, room]);
