@@ -4,7 +4,8 @@ import React from "react";
 
 import allRooms from "./rooms.jsx";
 
-const DISPLAY_LIMIT = 5;
+const DISPLAY_LIMIT = 6;
+
 export default class SearchComponent extends React.Component {
 	constructor(props) {
 		super(props);
@@ -21,8 +22,6 @@ export default class SearchComponent extends React.Component {
 			return;
 		}
 
-		this.setState({ firstSearch: true });
-
 		const filteredRooms = allRooms.filter((room) => {
 			const roomName = room.shortname.toLowerCase();
 			const buildingName = room.fullname.toLowerCase();
@@ -31,6 +30,8 @@ export default class SearchComponent extends React.Component {
 		});
 
 		this.setState({ searchRooms: filteredRooms });
+		this.setState({ displayFrom: 0 });
+		this.setState({ firstSearch: true });
 	};
 
 	componentDidMount() {
@@ -87,12 +88,20 @@ export default class SearchComponent extends React.Component {
 
 					{this.changeDisplayButton(
 						`>`,
-						() => this.setState({ displayFrom: (displayFrom + DISPLAY_LIMIT < searchRooms.length ? displayFrom + DISPLAY_LIMIT : displayFrom) })
+						() => this.setState({
+							displayFrom: displayFrom + DISPLAY_LIMIT < searchRooms.length
+								? displayFrom + DISPLAY_LIMIT
+								: displayFrom
+						})
 					)}
 
 					{this.changeDisplayButton(
 						`>>`,
-						() => this.setState({ displayFrom: searchRooms.length - (searchRooms.length % DISPLAY_LIMIT) })
+						() => this.setState({
+							displayFrom: (searchRooms.length % DISPLAY_LIMIT) === 0
+								? searchRooms.length - DISPLAY_LIMIT
+								: searchRooms.length - (searchRooms.length % DISPLAY_LIMIT)
+						})
 					)}
 				</Box>
 

@@ -53,7 +53,7 @@ export default function SelectedRooms() {
 	// 	calculateAllDistances();
 	// }, [selectedRooms]); // rerun when selectedRooms changes
 
-	return (
+	return selectedRooms.length > 0 && (
 		<Box>
 			<Typography variant="h5" gutterBottom mt={-1.5}>
 				SELECTED ROOMS:
