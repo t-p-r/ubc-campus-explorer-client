@@ -26,20 +26,13 @@ export default class App extends React.Component {
 						<Header />
 						<Box display="flex">
 							<Box width="75%">
-								<Box>
-									<UBCMap />
-								</Box>
-								<Box display="flex" mt={0.5} marginLeft={0.5}>
-									<Box padding={1} width="50%">
-										<SelectedRooms />
-									</Box>
-									{/* <Box padding={1} width="50%">
-										<MapComponent />
-									</Box> */}
-								</Box>
+								<UBCMap />
 							</Box>
 							<Box flex={1} p={0}>
 								<SearchComponent />
+								<Box padding={1}>
+									<SelectedRooms />
+								</Box>
 							</Box>
 						</Box>
 					</Box>

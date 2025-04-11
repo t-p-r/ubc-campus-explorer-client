@@ -73,7 +73,7 @@ export default function UBCMap() {
 	}
 
 	return (
-		<Box p={1} height="80vh">
+		<Box p={1} height={"94.25vh"} display="flex" flexDirection="column">
 			<MapContainer center={[49.2606, -123.246]} zoom={14} style={{ height: "100%", width: "100%" }}>
 				<LayersControl position="topright">
 					<LayersControl.Overlay name="Show all buildings">

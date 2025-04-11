@@ -4,7 +4,7 @@ import React from "react";
 
 import allRooms from "./rooms.js";
 
-const DISPLAY_LIMIT = 7;
+const DISPLAY_LIMIT = 6;
 
 export default class SearchComponent extends React.Component {
 	constructor(props) {

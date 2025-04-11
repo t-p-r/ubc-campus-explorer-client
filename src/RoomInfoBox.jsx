@@ -37,8 +37,6 @@ function RoomInfoBox({ room, width }) {
 				<Typography>building: <em>{room.fullname}</em></Typography>
 				<Typography>address: {room.address}</Typography>
 				<Typography>capacity: {room.seats}</Typography>
-				{/* <Typography>lat: {room.lat}</Typography>
-				<Typography>lon: {room.lon}</Typography> */}
 			</Box>
 			<Box flexGrow={1} />
 

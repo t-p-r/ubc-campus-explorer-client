@@ -5,7 +5,7 @@ const SelectedRoomsContext = createContext({
 	setSelectedRooms: () => {},
 });
 
-const SELECT_LIMIT = 8;
+const SELECT_LIMIT = 5;
 
 export function SelectedRoomsProvider({ children }) {
 	const [selectedRooms, setSelectedRooms] = useState([]);
