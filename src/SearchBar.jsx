@@ -57,7 +57,7 @@ export default class SearchComponent extends React.Component {
 
 		return (
 			<Box>
-				<Box display="flex" alignItems="center" p={1} marginInlineEnd={1.8}>
+				<Box display="flex" alignItems="center" p={1}>
 					<TextField
 						variant="outlined"
 						label="Enter building name"
