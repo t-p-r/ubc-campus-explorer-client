@@ -1,5 +1,6 @@
 import { createTheme } from "@mui/material/styles";
 import '@fontsource/inter';
+import '@fontsource/open-sans';
 
 const defaultTheme = createTheme({
 	palette: {
@@ -12,7 +13,7 @@ const defaultTheme = createTheme({
 		mode: "light",
 	},
 	typography: {
-		fontFamily: "Inter, Open Sans, sans-serif",
+		fontFamily: "Open Sans, sans-serif",
 	},
 	components: {
 		MuiButton: {
