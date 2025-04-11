@@ -33,9 +33,9 @@ export default class App extends React.Component {
 									<Box padding={1} width="50%">
 										<SelectedRooms />
 									</Box>
-									<Box padding={1} width="50%">
+									{/* <Box padding={1} width="50%">
 										<MapComponent />
-									</Box>
+									</Box> */}
 								</Box>
 							</Box>
 							<Box flex={1} p={0}>

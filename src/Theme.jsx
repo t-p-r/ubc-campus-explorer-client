@@ -27,27 +27,6 @@ const defaultTheme = createTheme({
 				disableRipple: true,
 			},
 		},
-		MuiPaper: {
-			styleOverrides: {
-				root: {
-					borderRadius: 0,
-				},
-			},
-		},
-		MuiBox: {
-			styleOverrides: {
-				root: {
-					border: 100,
-				},
-			},
-		},
-		MuiTextField: {
-			styleOverrides: {
-				root: {
-					borderRadius: 30
-				},
-			},
-		},
 	},
 });
 

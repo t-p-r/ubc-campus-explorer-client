@@ -4,7 +4,7 @@ import GitHubIcon from "@mui/icons-material/GitHub";
 
 export default function Header() {
 	return (
-		<AppBar position="static" sx={{ backgroundColor: "#002145" }}>
+		<AppBar position="static" sx={{ backgroundColor: "primary" }}>
 			<Toolbar sx={{ justifyContent: "space-between" }}>
 				<Box display="flex" alignItems="center" gap={1}>
 					<img

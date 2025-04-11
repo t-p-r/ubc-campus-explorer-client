@@ -1,12 +1,30 @@
 import React from "react";
-import { Box, Typography, Checkbox } from "@mui/material";
-import { MapContainer, TileLayer, Popup, Marker, Polyline, LayersControl, LayerGroup } from "react-leaflet";
-// import "leaflet-routing-machine/dist/leaflet-routing-machine.css";
-// import "leaflet-routing-machine";
+import { Box } from "@mui/material";
+import { MapContainer, TileLayer, Popup, Marker, LayersControl, LayerGroup, useMap } from "react-leaflet";
+import "leaflet-routing-machine/dist/leaflet-routing-machine.css";
+import "leaflet-routing-machine";
 import L from "leaflet";
 
 import allRooms from "./rooms.js";
 import SelectedRoomsContext from "./SelectedRoomContext.jsx";
+
+function RenderRoutes() {
+	const map = useMap();
+	const { selectedRooms } = React.useContext(SelectedRoomsContext);
+	const coords = Array.from(selectedRooms).map((room) => [room.lat, room.lon]);
+
+	React.useEffect(() => {
+		if (coords.length < 2) return;
+		const routingControl = L.Routing.control({
+			createMarker: function () { return null; },
+			waypoints: coords, fitSelectedRoutes: true,
+		}).addTo(map);
+		return () => map.removeControl(routingControl);
+	}, [coords, map]);
+
+	return null;
+}
+
 
 export default function UBCMap() {
 	const { selectedRooms } = React.useContext(SelectedRoomsContext);
@@ -23,15 +41,29 @@ export default function UBCMap() {
 		popupAnchor: [1, -42]
 	});
 
-	const selectedIcon = new L.Icon({
-		iconUrl: "https://cdn.iconscout.com/icon/free/png-256/free-map-marker-icon-download-in-svg-png-gif-file-formats--location-pin-pointer-user-interface-pack-icons-2700108.png?f=webp&w=256",
-		iconSize: [48, 48],
-		iconAnchor: [24, 48],
-		popupAnchor: [1, -36]
-	});
+	function selectedIcon(building, number) {
+		return new L.DivIcon({
+			className: 'my-div-icon',
+			html: `
+				<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48">
+					<circle cx="24" cy="24" r="24" fill="#002145" />
+					<text x="50%" y="35%" text-anchor="middle" dy=".3em" fill="white" font-size="12" font-weight="bold">
+						${building}
+					</text>
+
+					<text x="50%" y="75%" text-anchor="middle" dy=".3em" fill="white" font-size="12" font-weight="bold">
+						${number}
+					</text>
+				</svg>
+			`,
+			
+			iconAnchor: [24, 48],
+			popupAnchor: [1, -36]
+		});
+	}
 
 	return (
-		<Box p={1} height="70vh">
+		<Box p={1} height="80vh">
 			<MapContainer center={[49.2606, -123.246]} zoom={14} style={{ height: "100%", width: "100%" }}>
 				<LayersControl position="topright">
 					<LayersControl.Overlay name="Show all buildings">
@@ -51,13 +83,12 @@ export default function UBCMap() {
 					attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 				/>
 
+				<RenderRoutes />
+
 				{Array.from(selectedRooms).map((room, index) => (
-					<Marker key={index} position={[room.lat, room.lon]} icon={selectedIcon}>
-						<Popup>{room.shortname} {room.number}</Popup>
+					<Marker key={index} position={[room.lat, room.lon]} icon={selectedIcon(room.shortname, room.number)}>
 					</Marker>
 				))}
-
-				<Polyline positions={Array.from(selectedRooms).map((room) => [room.lat, room.lon])}></Polyline>
 			</MapContainer>
 		</Box>
 	);
