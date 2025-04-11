@@ -5,7 +5,7 @@ import { MapContainer, TileLayer, Popup, Marker, Polyline, LayersControl, LayerG
 // import "leaflet-routing-machine";
 import L from "leaflet";
 
-import allRooms from "./rooms.jsx";
+import allRooms from "./rooms.js";
 import SelectedRoomsContext from "./SelectedRoomContext.jsx";
 
 export default function UBCMap() {

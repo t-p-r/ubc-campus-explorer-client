@@ -1,3 +1,5 @@
+// Yes, I know this is an incredibly bad idea.
+
 const allRooms = [
 	{
 		"fullname": "Allard Hall (LAW)",

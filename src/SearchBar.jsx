@@ -2,7 +2,7 @@ import { Typography, TextField, Button, Box } from "@mui/material";
 import RoomInfoBox from "./RoomInfoBox";
 import React from "react";
 
-import allRooms from "./rooms.jsx";
+import allRooms from "./rooms.js";
 
 const DISPLAY_LIMIT = 6;
 
