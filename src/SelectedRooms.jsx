@@ -8,7 +8,7 @@ export default function SelectedRooms() {
 
 	return selectedRooms.length > 0 && (
 		<Box>
-			<Typography variant="h5" gutterBottom mt={-2.5} width={"100%"} textAlign="center">
+			<Typography variant="h5" gutterBottom mt={-0.5} width={"100%"} textAlign="center">
 				SELECTED ROOMS:
 			</Typography>
 			<Box display="flex" flexDirection="row" gap={1} flexWrap="wrap" justifyContent="center">
