@@ -102,7 +102,7 @@ export default function SearchComponent() {
 				</PopupState>
 			</Box>
 
-			<Box display="flex" gap={0.5} justifyContent="center">
+			<Box display="flex" gap={0} justifyContent="center">
 				{changeDisplayButton(
 					`<<`,
 					() => setDisplayFrom(0)
@@ -140,7 +140,7 @@ export default function SearchComponent() {
 				)}
 			</Box>
 
-			<Box padding={1}>
+			<Box padding={1} style={{ maxHeight: "69vh", overflowY: "scroll" }}>
 				{searchRooms.slice(displayFrom, displayFrom + DISPLAY_LIMIT).map((room, index) => (
 					<RoomInfoBox
 						key={index}
