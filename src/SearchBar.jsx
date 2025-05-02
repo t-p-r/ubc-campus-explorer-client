@@ -66,7 +66,7 @@ export default function SearchComponent() {
 
 	React.useEffect(() => {
 		sortSearchRooms(sortBy);
-	}, sortBy);
+	}, [sortBy]);
 
 	return (
 		<Box>
