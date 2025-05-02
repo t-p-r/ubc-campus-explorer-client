@@ -1,4 +1,4 @@
-import SelectedRoomsContext from "./SelectedRoomContext.jsx";
+import { SelectedRoomsContext } from "./SelectedRoomsContext.jsx";
 import React, { useContext, useEffect, useState } from "react";
 import "leaflet-routing-machine";
 import "leaflet-routing-machine/dist/leaflet-routing-machine.css";

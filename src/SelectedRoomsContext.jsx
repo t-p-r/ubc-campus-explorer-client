@@ -1,13 +1,9 @@
-import { createContext, useState} from "react";
+import { createContext, useState } from "react";
 
-const SelectedRoomsContext = createContext({
-	selectedRooms: [],
-	setSelectedRooms: () => {},
-});
+export const SelectedRoomsContext = createContext([]);
 
-const SELECT_LIMIT = 5;
-
-export function SelectedRoomsProvider({ children }) {
+export default function SelectedRoomsProvider({ children }) {
+	const SELECT_LIMIT = 5;
 	const [selectedRooms, setSelectedRooms] = useState([]);
 
 	const addSelectedRoom = (room) => {
@@ -23,10 +19,8 @@ export function SelectedRoomsProvider({ children }) {
 	};
 
 	return (
-		<SelectedRoomsContext.Provider value={{ selectedRooms, addSelectedRoom, setSelectedRooms }}>
+		<SelectedRoomsContext.Provider value={{ selectedRooms, setSelectedRooms, addSelectedRoom }}>
 			{children}
 		</SelectedRoomsContext.Provider>
 	);
 }
-
-export default SelectedRoomsContext;

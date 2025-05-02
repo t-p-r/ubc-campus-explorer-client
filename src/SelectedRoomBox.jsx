@@ -1,10 +1,10 @@
 import React from "react";
 import { Typography, Box } from "@mui/material";
-import SelectedRoomsContext from "./SelectedRoomContext";
+import { SelectedRoomsContext } from "./SelectedRoomsContext";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import IconButton from "@mui/material/IconButton";
 
-function SelectedRoomBox({ room, width }) {
+export default function SelectedRoomBox({ room, width }) {
 	if (!room) {
 		return null;
 	}
@@ -45,5 +45,3 @@ function SelectedRoomBox({ room, width }) {
 		</Box>
 	);
 }
-
-export default SelectedRoomBox;
