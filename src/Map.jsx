@@ -17,7 +17,11 @@ function RenderRoutes() {
 		if (coords.length < 2) return;
 		const routingControl = L.Routing.control({
 			createMarker: function () { return null; },
-			waypoints: coords, fitSelectedRoutes: true,
+			waypoints: coords,
+			router: L.Routing.osrmv1({
+				serviceUrl: 'https://routing.openstreetmap.de/routed-foot/route/v1', // i mean who uses a car to drive around campus lol
+			}),
+			fitSelectedRoutes: 'smart',
 		}).addTo(map);
 		return () => map.removeControl(routingControl);
 	}, [coords, map]);
