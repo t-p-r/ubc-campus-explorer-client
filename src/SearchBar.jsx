@@ -30,6 +30,20 @@ export default function SearchComponent() {
 		);
 	}
 
+	const sortByOptions = (rooms, [param, desc]) => {
+		rooms.sort((a, b) => {
+			return a[param] < b[param] ? -1
+				: a[param] > b[param] ? 1 : 0;
+		});
+		if (desc) rooms.reverse();
+		return rooms;
+	}
+
+	const sortSearchRooms = ([param, desc]) => {
+		const sortedRooms = sortByOptions([...searchRooms], [param, desc]);
+		setSearchRooms(sortedRooms);
+	}
+
 	const handleSearch = (keyword) => {
 		if (!keyword) {
 			setSearchRooms(allRooms);
@@ -43,18 +57,11 @@ export default function SearchComponent() {
 			return roomName.includes(searchTerm) || buildingName.includes(searchTerm);
 		});
 
+		sortByOptions(filteredRooms, sortBy);
 		setSearchRooms(filteredRooms);
 		setDisplayFrom(0);
 	};
 
-	const sortSearchRooms = ([param, desc]) => {
-		const sortedRooms = [...searchRooms].sort((a, b) => {
-			return a[param] < b[param] ? -1
-				: a[param] > b[param] ? 1 : 0;
-		});
-		if (desc) sortedRooms.reverse();
-		setSearchRooms(sortedRooms);
-	}
 
 	const handleInputChange = (event) => {
 		setSearchTerm(event.target.value);
