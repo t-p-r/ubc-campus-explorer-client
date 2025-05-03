@@ -1,6 +1,8 @@
 // Yes, I know this is an incredibly bad idea.
 
-const allRooms = [
+export type Room = Record<string, string | number | boolean | null>;
+
+const allRooms: Room[] = [
 	{
 		"fullname": "Allard Hall (LAW)",
 		"shortname": "ALRD",
