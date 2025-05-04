@@ -8,7 +8,9 @@
 		"build": "tsc -b && vite build",
 		"lint": "eslint .",
 		"preview": "vite preview",
-		"cy:open": "cypress open"
+		"cy:open": "cypress open",
+		"cy:run": "cypress run",
+		"cy:e2e:electron": "cypress run --browser electron"
 	},
 	"dependencies": {
 		"@emotion/react": "^11.14.0",
