@@ -4,7 +4,7 @@ import { Box } from "@mui/material";
 import Header from "./Header";
 import SearchComponent from "./SearchBar";
 import UBCMap from "./Map";
-import SelectedRoomsProvider from "./SelectedRoomsContext.jsx";
+import { SelectedRoomsProvider } from "./SelectedRoomsContext.jsx";
 import SelectedRooms from "./SelectedRooms";
 import { ThemeProvider } from "@mui/material/styles";
 import defaultTheme from "./Theme.jsx";

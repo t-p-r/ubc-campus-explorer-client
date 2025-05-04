@@ -1,8 +1,8 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useContext } from "react";
 
 export const SelectedRoomsContext = createContext([]);
 
-export default function SelectedRoomsProvider({ children }) {
+export function SelectedRoomsProvider({ children }) {
 	const SELECT_LIMIT = 5;
 	const [selectedRooms, setSelectedRooms] = useState([]);
 
@@ -23,4 +23,8 @@ export default function SelectedRoomsProvider({ children }) {
 			{children}
 		</SelectedRoomsContext.Provider>
 	);
+}
+
+export default function useSelectedRooms() {
+	return useContext(SelectedRoomsContext);
 }

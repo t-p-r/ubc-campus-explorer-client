@@ -1,8 +1,8 @@
-import { SelectedRoomsContext } from "./SelectedRoomsContext.jsx";
-import React, { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "leaflet-routing-machine";
 import "leaflet-routing-machine/dist/leaflet-routing-machine.css";
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
+import useSelectedRooms from "../SelectedRoomsContext.jsx";
 
 // This is for estimating the rough walking distance between selected rooms
 // Using Leaflet's Open Source Routing Machine API
@@ -10,8 +10,7 @@ import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow
 const MIN_WALKING_TIME = 3; // minutes
 
 function MapComponent() {
-	const { selectedRooms } = useContext(SelectedRoomsContext);
-
+	const { selectedRooms } = useSelectedRooms();
 	const [distances, setDistances] = useState([]);
 
 	// Courtesy of https://stackoverflow.com/questions/1502590/how-to-calculate-distance-between-two-gps-coordinates

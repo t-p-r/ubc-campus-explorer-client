@@ -3,7 +3,7 @@ import PopupState, { bindTrigger, bindMenu } from "material-ui-popup-state";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import RoomInfoBox from "./RoomInfoBox";
-import React from "react";
+import React, { useMemo, useState } from "react";
 
 import allRooms from "./rooms.js";
 
@@ -15,10 +15,9 @@ const sortOptions = Object.freeze({
 });
 
 export default function SearchComponent() {
-	const [searchRooms, setSearchRooms] = React.useState(allRooms);
-	const [displayFrom, setDisplayFrom] = React.useState(0);
-	const [searchTerm, setSearchTerm] = React.useState("");
-	const [sortBy, setSortBy] = React.useState(sortOptions.SEATS_DEC);
+	const [displayFrom, setDisplayFrom] = useState(0);
+	const [searchTerm, setSearchTerm] = useState("");
+	const [sortBy, setSortBy] = useState(sortOptions.SEATS_DEC);
 
 	const changeDisplayButton = (text, func) => {
 		return (
@@ -39,41 +38,23 @@ export default function SearchComponent() {
 		return rooms;
 	}
 
-	const sortSearchRooms = ([param, desc]) => {
-		const sortedRooms = sortByOptions([...searchRooms], [param, desc]);
-		setSearchRooms(sortedRooms);
-	}
-
-	const handleSearch = (keyword) => {
-		if (!keyword) {
-			setSearchRooms(allRooms);
-			return;
-		}
-
-		const filteredRooms = allRooms.filter((room) => {
+	const filteredRooms = useMemo(
+		() => allRooms.filter((room) => {
 			const roomName = room.shortname.toLowerCase();
 			const buildingName = room.fullname.toLowerCase();
-			const searchTerm = keyword.toLowerCase();
-			return roomName.includes(searchTerm) || buildingName.includes(searchTerm);
-		});
+			return roomName.includes(searchTerm.toLowerCase()) || buildingName.includes(searchTerm.toLowerCase());
+		}),
+		[searchTerm]
+	);
 
-		sortByOptions(filteredRooms, sortBy);
-		setSearchRooms(filteredRooms);
+	const sortedSearchRooms = useMemo(
+		() => sortByOptions([...filteredRooms], sortBy),
+		[filteredRooms, sortBy]
+	);
+
+	React.useEffect(() => {
 		setDisplayFrom(0);
-	};
-
-
-	const handleInputChange = (event) => {
-		setSearchTerm(event.target.value);
-	};
-
-	React.useEffect(() => {
-		handleSearch(searchTerm);
-	}, [searchTerm]);
-
-	React.useEffect(() => {
-		sortSearchRooms(sortBy);
-	}, [sortBy]);
+	}, [searchTerm, sortBy]);
 
 	return (
 		<Box>
@@ -81,8 +62,9 @@ export default function SearchComponent() {
 				<TextField
 					variant="outlined"
 					label="Enter building name"
-					onChange={handleInputChange}
+					onChange={(event) => setSearchTerm(event.target.value)}
 					fullWidth
+					autoComplete="off"
 					slotProps={{
 						input: { style: { borderRadius: "32px" } },
 					}}
@@ -119,29 +101,29 @@ export default function SearchComponent() {
 
 				<Box display="flex" alignItems="center">
 					<Typography>
-						{displayFrom + 1} - {Math.min(displayFrom + DISPLAY_LIMIT, searchRooms.length)} of {searchRooms.length}
+						{displayFrom + 1} - {Math.min(displayFrom + DISPLAY_LIMIT, sortedSearchRooms.length)} of {sortedSearchRooms.length}
 					</Typography>
 				</Box>
 
 				{changeDisplayButton(
 					`>`,
 					() => setDisplayFrom(
-						displayFrom + DISPLAY_LIMIT < searchRooms.length
+						displayFrom + DISPLAY_LIMIT < sortedSearchRooms.length
 							? displayFrom + DISPLAY_LIMIT
-							: searchRooms.length - (searchRooms.length % DISPLAY_LIMIT)
+							: sortedSearchRooms.length - (sortedSearchRooms.length % DISPLAY_LIMIT)
 					)
 				)}
 
 				{changeDisplayButton(
 					`>>`,
 					() => setDisplayFrom(
-						Math.floor(searchRooms.length / DISPLAY_LIMIT) * DISPLAY_LIMIT
+						Math.floor(sortedSearchRooms.length / DISPLAY_LIMIT) * DISPLAY_LIMIT
 					)
 				)}
 			</Box>
 
 			<Box padding={1} style={{ maxHeight: "69vh", overflowY: "scroll" }}>
-				{searchRooms.slice(displayFrom, displayFrom + DISPLAY_LIMIT).map((room, index) => (
+				{sortedSearchRooms.slice(displayFrom, displayFrom + DISPLAY_LIMIT).map((room, index) => (
 					<RoomInfoBox
 						key={index}
 						room={{

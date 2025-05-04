@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { Box } from "@mui/material";
 import { MapContainer, TileLayer, Marker, LayersControl, LayerGroup, useMap } from "react-leaflet";
 import "leaflet-routing-machine/dist/leaflet-routing-machine.css";
@@ -6,28 +6,7 @@ import "leaflet-routing-machine";
 import L from "leaflet";
 
 import allRooms from "./rooms.js";
-import { SelectedRoomsContext } from "./SelectedRoomsContext";
-
-function RenderRoutes() {
-	const map = useMap();
-	const { selectedRooms } = useContext(SelectedRoomsContext);
-	const coords = Array.from(selectedRooms).map((room) => [room.lat, room.lon]);
-
-	useEffect(() => {
-		if (coords.length < 2) return;
-		const routingControl = L.Routing.control({
-			createMarker: function () { return null; },
-			waypoints: coords,
-			router: L.Routing.osrmv1({
-				serviceUrl: 'https://routing.openstreetmap.de/routed-foot/route/v1', // i mean who uses a car to drive around campus lol
-			}),
-			fitSelectedRoutes: 'smart',
-		}).addTo(map);
-		return () => map.removeControl(routingControl);
-	}, [coords, map]);
-
-	return null;
-}
+import useSelectedRooms from "./SelectedRoomsContext";
 
 function defaultIcon(building) {
 	return new L.DivIcon({
@@ -66,38 +45,57 @@ function selectedIcon(building, number) {
 	});
 }
 
-export default function UBCMap() {
-	const { selectedRooms } = useContext(SelectedRoomsContext);
+function MapInternal() {
+	const { selectedRooms } = useSelectedRooms();
+	const buildings = new Map(allRooms.map(room => [room.shortname, room]));
 
-	const buildings = new Map();
-	for (const room of allRooms) {
-		buildings.set(room.shortname, room);
-	}
+	const coords = Array.from(selectedRooms).map((room) => [room.lat, room.lon]);
+	const map = useMap();
+
+	useEffect(() => {
+		if (coords.length < 2) return;
+		const routingControl = L.Routing.control({
+			createMarker: function () { return null; },
+			waypoints: coords,
+			router: L.Routing.osrmv1({
+				serviceUrl: 'https://routing.openstreetmap.de/routed-foot/route/v1', // i mean who uses a car to drive around campus lol
+			}),
+			fitSelectedRoutes: 'smart',
+		}).addTo(map);
+		return () => map.removeControl(routingControl);
+	}, [coords, map]);
 
 	return (
+		<React.Fragment>
+			<LayersControl position="topright">
+				<LayersControl.Overlay name="Show all buildings">
+					<LayerGroup>
+						{Array.from(buildings.values()).map((room, index) => (
+							<Marker key={index} position={[room.lat, room.lon]} icon={defaultIcon(room.shortname)}></Marker>
+						))}
+					</LayerGroup>
+				</LayersControl.Overlay>
+			</LayersControl>
+
+			<TileLayer
+				key="tileLayer"
+				url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+				attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+			/>
+
+			{Array.from(selectedRooms).map((room, index) => (
+				<Marker key={index} position={[room.lat, room.lon]} icon={selectedIcon(room.shortname, room.number)}></Marker>
+			))}
+		</React.Fragment>
+	);
+}
+
+export default function UBCMap() {
+	const UBC_COORD = [49.2606, -123.246];
+	return (
 		<Box p={1} height={"94.25vh"} display="flex" flexDirection="column">
-			<MapContainer center={[49.2606, -123.246]} zoom={14} style={{ height: "100%", width: "100%" }}>
-				<LayersControl position="topright">
-					<LayersControl.Overlay name="Show all buildings">
-						<LayerGroup>
-							{Array.from(buildings.values()).map((room, index) => (
-								<Marker key={index} position={[room.lat, room.lon]} icon={defaultIcon(room.shortname)}></Marker>
-							))}
-						</LayerGroup>
-					</LayersControl.Overlay>
-				</LayersControl>
-
-				<TileLayer
-					key="tileLayer"
-					url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-					attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-				/>
-
-				<RenderRoutes />
-
-				{Array.from(selectedRooms).map((room, index) => (
-					<Marker key={index} position={[room.lat, room.lon]} icon={selectedIcon(room.shortname, room.number)}></Marker>
-				))}
+			<MapContainer center={UBC_COORD} zoom={14} style={{ height: "100%", width: "100%" }}>
+				<MapInternal />
 			</MapContainer>
 		</Box>
 	);

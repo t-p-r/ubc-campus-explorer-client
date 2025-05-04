@@ -1,13 +1,14 @@
 import { useContext } from "react";
 import { Typography, Button, Box } from "@mui/material";
-import { SelectedRoomsContext } from "./SelectedRoomsContext";
+import useSelectedRooms from "./SelectedRoomsContext";
 
 export default function RoomInfoBox({ room, width }) {
 	if (!room) {
 		return null;
 	}
 
-	const { selectedRooms, setSelectedRooms, addSelectedRoom } = useContext(SelectedRoomsContext);
+	const { selectedRooms, setSelectedRooms, addSelectedRoom } = useSelectedRooms();
+
 	return (
 		<Box
 			borderColor="black"

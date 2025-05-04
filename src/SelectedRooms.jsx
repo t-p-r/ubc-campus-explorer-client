@@ -1,10 +1,10 @@
 import React from "react";
 import { Box, Typography } from "@mui/material";
-import { SelectedRoomsContext } from "./SelectedRoomsContext";
+import useSelectedRooms, { SelectedRoomsContext } from "./SelectedRoomsContext";
 import SelectedRoomBox from "./SelectedRoomBox";
 
 export default function SelectedRooms() {
-	const { selectedRooms } = React.useContext(SelectedRoomsContext);
+	const { selectedRooms } = useSelectedRooms();
 
 	return selectedRooms.length > 0 && (
 		<Box>
