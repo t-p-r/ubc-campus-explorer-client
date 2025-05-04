@@ -3,11 +3,16 @@ import PopupState, { bindTrigger, bindMenu } from "material-ui-popup-state";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import RoomInfoBox from "./RoomInfoBox";
-import React from "react";
+import { useState, useEffect } from "react";
 
+import { Room } from "./types";
 import allRooms from "./rooms.js";
 
 const DISPLAY_LIMIT = 6;
+
+type SortOption = {
+	[key: string]: boolean;
+};
 
 const sortOptions = Object.freeze({
 	BUILDING: ["fullname", false],
@@ -15,12 +20,12 @@ const sortOptions = Object.freeze({
 });
 
 export default function SearchComponent() {
-	const [searchRooms, setSearchRooms] = React.useState(allRooms);
-	const [displayFrom, setDisplayFrom] = React.useState(0);
-	const [searchTerm, setSearchTerm] = React.useState("");
-	const [sortBy, setSortBy] = React.useState(sortOptions.SEATS_DEC);
+	const [searchRooms, setSearchRooms] = useState(allRooms);
+	const [displayFrom, setDisplayFrom] = useState(0);
+	const [searchTerm, setSearchTerm] = useState("");
+	const [sortBy, setSortBy] = useState(sortOptions.SEATS_DEC);
 
-	const changeDisplayButton = (text, func) => {
+	const changeDisplayButton = (text: string, func: () => React.Dispatch<React.SetStateAction<any>>) => {
 		return (
 			<Button onClick={func} variant="text" color="primary">
 				<Typography variant="h6" fontWeight="bold">
@@ -30,7 +35,7 @@ export default function SearchComponent() {
 		);
 	}
 
-	const sortByOptions = (rooms, [param, desc]) => {
+	const sortByOptions = (rooms: Room[], param: keyof Room, desc: boolean) => {
 		rooms.sort((a, b) => {
 			return a[param] < b[param] ? -1
 				: a[param] > b[param] ? 1 : 0;
@@ -39,12 +44,12 @@ export default function SearchComponent() {
 		return rooms;
 	}
 
-	const sortSearchRooms = ([param, desc]) => {
-		const sortedRooms = sortByOptions([...searchRooms], [param, desc]);
+	const sortSearchRooms = (param: keyof Room, desc: boolean) => {
+		const sortedRooms = sortByOptions([...searchRooms], param, desc);
 		setSearchRooms(sortedRooms);
 	}
 
-	const handleSearch = (keyword) => {
+	const handleSearch = (keyword: string) => {
 		if (!keyword) {
 			setSearchRooms(allRooms);
 			return;
@@ -57,22 +62,22 @@ export default function SearchComponent() {
 			return roomName.includes(searchTerm) || buildingName.includes(searchTerm);
 		});
 
-		sortByOptions(filteredRooms, sortBy);
+		sortByOptions(filteredRooms, sortBy[0], sortBy[1]);
 		setSearchRooms(filteredRooms);
 		setDisplayFrom(0);
 	};
 
 
-	const handleInputChange = (event) => {
+	const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setSearchTerm(event.target.value);
 	};
 
-	React.useEffect(() => {
+	useEffect(() => {
 		handleSearch(searchTerm);
 	}, [searchTerm]);
 
-	React.useEffect(() => {
-		sortSearchRooms(sortBy);
+	useEffect(() => {
+		sortSearchRooms(sortBy[0] as keyof Room, sortBy[1]);
 	}, [sortBy]);
 
 	return (

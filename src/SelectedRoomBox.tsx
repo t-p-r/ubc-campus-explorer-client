@@ -4,12 +4,14 @@ import { SelectedRoomsContext } from "./SelectedRoomsContext";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import IconButton from "@mui/material/IconButton";
 
-export default function SelectedRoomBox({ room, width }) {
+import { Props} from "./types";
+
+export default function SelectedRoomBox({ room, width }: Props) {
 	if (!room) {
 		return null;
 	}
 
-	const { selectedRooms, setSelectedRooms } = React.useContext(SelectedRoomsContext);
+	const { state: selectedRooms, setter: setSelectedRooms } = React.useContext(SelectedRoomsContext);
 
 	return (
 		<Box
@@ -36,7 +38,7 @@ export default function SelectedRoomBox({ room, width }) {
 			<Box display="flex" justifyContent="center" alignItems="center" mt={-2}>
 				<IconButton
 					onClick={() => setSelectedRooms(selectedRooms.filter((r) => r !== room))}
-					variant="text"
+					// variant="text"
 					color="secondary"
 				>
 					<DeleteOutlineIcon />

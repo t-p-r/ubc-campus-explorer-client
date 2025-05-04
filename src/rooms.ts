@@ -1,6 +1,6 @@
 // Yes, I know this is an incredibly bad idea.
 
-export type Room = Record<string, string | number | boolean | null>;
+import { Room } from "./types";
 
 const allRooms: Room[] = [
 	{

@@ -4,7 +4,7 @@ import { SelectedRoomsContext } from "./SelectedRoomsContext";
 import SelectedRoomBox from "./SelectedRoomBox";
 
 export default function SelectedRooms() {
-	const { selectedRooms } = React.useContext(SelectedRoomsContext);
+	const { state: selectedRooms } = React.useContext(SelectedRoomsContext);
 
 	return selectedRooms.length > 0 && (
 		<Box>
