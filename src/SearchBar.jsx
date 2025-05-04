@@ -3,7 +3,7 @@ import PopupState, { bindTrigger, bindMenu } from "material-ui-popup-state";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import RoomInfoBox from "./RoomInfoBox";
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 
 import allRooms from "./rooms.js";
 
@@ -52,9 +52,11 @@ export default function SearchComponent() {
 		[filteredRooms, sortBy]
 	);
 
-	React.useEffect(() => {
-		setDisplayFrom(0);
-	}, [searchTerm, sortBy]);
+	// lesson: useEffect here will trigger visible re-render
+	useEffect(
+		() => setDisplayFrom(0),
+		[searchTerm, sortBy]
+	);
 
 	return (
 		<Box>
