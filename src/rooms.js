@@ -4604,7 +4604,7 @@ const allRooms = [
 		"href": "[object Object]"
 	},
 	{
-		"fullname": "Centre for Interactive  Research on Sustainability",
+		"fullname": "Centre for Interactive Research on Sustainability",
 		"shortname": "CIRS",
 		"number": "1250",
 		"name": "CIRS 1250",
