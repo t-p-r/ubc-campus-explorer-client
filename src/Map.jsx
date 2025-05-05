@@ -69,7 +69,7 @@ function MapInternal() {
 		<React.Fragment>
 			<LayersControl position="topright">
 				<LayersControl.Overlay name="Show all buildings">
-					<LayerGroup>
+					<LayerGroup data-testid="all-buildings">
 						{Array.from(buildings.values()).map((room, index) => (
 							<Marker key={index} position={[room.lat, room.lon]} icon={defaultIcon(room.shortname)}></Marker>
 						))}
@@ -93,7 +93,7 @@ function MapInternal() {
 export default function UBCMap() {
 	const UBC_COORD = [49.2606, -123.246];
 	return (
-		<Box p={1} height={"94.25vh"} display="flex" flexDirection="column">
+		<Box p={1} height={"94.25vh"} display="flex" flexDirection="column" data-testid="ubcmap">
 			<MapContainer center={UBC_COORD} zoom={14} style={{ height: "100%", width: "100%" }}>
 				<MapInternal />
 			</MapContainer>
