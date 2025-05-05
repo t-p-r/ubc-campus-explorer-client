@@ -10,7 +10,7 @@ import allRooms from "./rooms.js";
 const DISPLAY_LIMIT = 6;
 
 const sortOptions = Object.freeze({
-	BUILDING: ["fullname", false],
+	BUILDING: ["name", false],
 	SEATS_DEC: ["seats", true],
 });
 
