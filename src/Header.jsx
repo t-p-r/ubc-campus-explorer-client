@@ -16,7 +16,7 @@ export default function Header() {
 						<strong>UBC CAMPUS EXPLORER</strong>
 					</Typography>
 				</Box>
-				<Box>
+				{/* <Box>
 					<IconButton
 						data-testid="header-github-link"
 						color="inherit"
@@ -27,7 +27,7 @@ export default function Header() {
 					>
 						<GitHubIcon />
 					</IconButton>
-				</Box>
+				</Box> */}
 			</Toolbar>
 		</AppBar>
 	);
