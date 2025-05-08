@@ -8,9 +8,5 @@ export default defineConfig({
 			// OSRM backend. TODO: change when deploying
 			"/route": "http://localhost:5000",
 		},
-		port: 4173,
-		strictPort: true,
-		host: true,
-		origin: "http://0.0.0.0:4173",
 	},
 });

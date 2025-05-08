@@ -8,6 +8,8 @@ import L from "leaflet";
 import allRooms from "./rooms.js";
 import useSelectedRooms from "./SelectedRoomsContext";
 
+const LOCAL_OSRM_URL = "http://localhost:5000/route/v1";
+
 function defaultIcon(building) {
 	return new L.DivIcon({
 		className: 'my-div-icon',
@@ -58,7 +60,7 @@ function MapInternal() {
 			createMarker: function () { return null; },
 			waypoints: coords,
 			router: L.Routing.osrmv1({
-				serviceUrl: '/route/v1', // i mean who uses a car to drive around campus lol
+				serviceUrl: LOCAL_OSRM_URL, // i mean who uses a car to drive around campus lol
 			}),
 			fitSelectedRoutes: 'smart',
 		}).addTo(map);
