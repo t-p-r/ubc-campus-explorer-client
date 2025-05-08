@@ -10,7 +10,7 @@ import allRooms from "./rooms.js";
 const DISPLAY_LIMIT = 6;
 
 const sortOptions = Object.freeze({
-	BUILDING: ["fullname", false],
+	BUILDING: ["name", false],
 	SEATS_DEC: ["seats", true],
 });
 
@@ -21,7 +21,7 @@ export default function SearchComponent() {
 
 	const changeDisplayButton = (text, func) => {
 		return (
-			<Button onClick={func} variant="text" color="primary">
+			<Button onClick={func} variant="text" color="primary" data-testid={`change-display-button-${text}`}>
 				<Typography variant="h6" fontWeight="bold">
 					{text}
 				</Typography>
@@ -38,9 +38,10 @@ export default function SearchComponent() {
 		return rooms;
 	}
 
+	// very rudimentary
 	const filteredRooms = useMemo(
 		() => allRooms.filter((room) => {
-			const roomName = room.shortname.toLowerCase();
+			const roomName = room.name.toLowerCase();
 			const buildingName = room.fullname.toLowerCase();
 			return roomName.includes(searchTerm.toLowerCase()) || buildingName.includes(searchTerm.toLowerCase());
 		}),
@@ -62,6 +63,7 @@ export default function SearchComponent() {
 		<Box>
 			<Box display="flex" alignItems="center" p={1} gap={1}>
 				<TextField
+					data-testid="search-bar"
 					variant="outlined"
 					label="Enter building name"
 					onChange={(event) => setSearchTerm(event.target.value)}
@@ -74,7 +76,11 @@ export default function SearchComponent() {
 				<PopupState variant="popover" popupId="demo-popup-menu">
 					{(popupState) => (
 						<React.Fragment>
-							<Button variant="contained" {...bindTrigger(popupState)} style={{ height: "56px", fontSize: "1.25rem" }}>
+							<Button
+								data-testid="order-button"
+								variant="contained" {...bindTrigger(popupState)}
+								style={{ height: "56px", fontSize: "1.25rem" }}
+							>
 								⇅
 							</Button>
 							<Menu {...bindMenu(popupState)}>
@@ -101,7 +107,7 @@ export default function SearchComponent() {
 					)
 				)}
 
-				<Box display="flex" alignItems="center">
+				<Box display="flex" alignItems="center" data-testid="room-index-box">
 					<Typography>
 						{displayFrom + 1} - {Math.min(displayFrom + DISPLAY_LIMIT, sortedSearchRooms.length)} of {sortedSearchRooms.length}
 					</Typography>
@@ -124,19 +130,11 @@ export default function SearchComponent() {
 				)}
 			</Box>
 
-			<Box padding={1} style={{ maxHeight: "69vh", overflowY: "scroll" }}>
+			<Box padding={1} style={{ maxHeight: "69vh", overflowY: "scroll" }} data-testid="room-info-boxes">
 				{sortedSearchRooms.slice(displayFrom, displayFrom + DISPLAY_LIMIT).map((room, index) => (
 					<RoomInfoBox
-						key={index}
-						room={{
-							fullname: room.fullname,
-							shortname: room.shortname,
-							number: room.number,
-							address: room.address,
-							seats: room.seats,
-							lat: room.lat,
-							lon: room.lon,
-						}}
+						index={index}
+						room={room}
 					/>
 				))}
 			</Box>

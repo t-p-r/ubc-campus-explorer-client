@@ -4,7 +4,7 @@ import useSelectedRooms, { SelectedRoomsContext } from "./SelectedRoomsContext";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import IconButton from "@mui/material/IconButton";
 
-export default function SelectedRoomBox({ room, width }) {
+export default function SelectedRoomBox({ room, width, index }) {
 	if (!room) {
 		return null;
 	}
@@ -13,6 +13,8 @@ export default function SelectedRoomBox({ room, width }) {
 
 	return (
 		<Box
+			data-testid="selected-room-box"
+			index={index}
 			borderColor="black"
 			borderRadius={3}
 			border={3}
@@ -26,15 +28,14 @@ export default function SelectedRoomBox({ room, width }) {
 			gap={2} // Added gap for spacing
 		>
 			<Box display="flex" alignItems="top">
-				<Typography variant="h6">
-					<strong>
-						{room.shortname} {room.number}
-					</strong>
+				<Typography data-testid="selected-room-name" variant="h6">
+					<strong>{room.name}</strong>
 				</Typography>
 			</Box>
 
 			<Box display="flex" justifyContent="center" alignItems="center" mt={-2}>
 				<IconButton
+					data-testid="selected-room-delete-button"
 					onClick={() => setSelectedRooms(selectedRooms.filter((r) => r !== room))}
 					variant="text"
 					color="secondary"

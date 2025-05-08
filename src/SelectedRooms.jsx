@@ -12,8 +12,8 @@ export default function SelectedRooms() {
 				SELECTED ROOMS:
 			</Typography>
 			<Box display="flex" flexDirection="row" gap={1} flexWrap="wrap" justifyContent="center">
-				{selectedRooms.map((room) => (
-					<SelectedRoomBox key={room.shortname + room.number} room={room} />
+				{selectedRooms.map((room, index) => (
+					<SelectedRoomBox key={room.shortname + room.number} room={room} index={index} />
 				))}
 			</Box>
 		</Box>

@@ -7,16 +7,18 @@ export default function Header() {
 			<Toolbar sx={{ justifyContent: "space-between" }}>
 				<Box display="flex" alignItems="center" gap={1}>
 					<img
+						data-testid="header-icon"
 						src="https://cdn-icons-png.flaticon.com/512/3082/3082383.png"
 						alt="Map Icon"
 						style={{ width: "24px", height: "24px", filter: "invert(100%)" }}
 					/>
-					<Typography variant="h5" component="div">
+					<Typography variant="h5" component="div" data-testid="header-title">
 						<strong>UBC CAMPUS EXPLORER</strong>
 					</Typography>
 				</Box>
-				<Box>
+				{/* <Box>
 					<IconButton
+						data-testid="header-github-link"
 						color="inherit"
 						component="a"
 						href="https://github.com/t-p-r/ubc-campus-explorer-client"
@@ -25,7 +27,7 @@ export default function Header() {
 					>
 						<GitHubIcon />
 					</IconButton>
-				</Box>
+				</Box> */}
 			</Toolbar>
 		</AppBar>
 	);

@@ -2,7 +2,7 @@ import React from "react";
 import "leaflet/dist/leaflet.css";
 import { Box } from "@mui/material";
 import Header from "./Header";
-import SearchComponent from "./SearchBar";
+import SearchComponent from "./SearchComponent";
 import UBCMap from "./Map";
 import { SelectedRoomsProvider } from "./SelectedRoomsContext.jsx";
 import SelectedRooms from "./SelectedRooms";
