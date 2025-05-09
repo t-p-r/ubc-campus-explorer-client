@@ -8,7 +8,7 @@ import L from "leaflet";
 import allRooms from "./rooms.js";
 import useSelectedRooms from "./SelectedRoomsContext";
 
-const VANCOUVER_OSRM_URL = "http://osrm-vancouver-alb-61022380.us-east-1.elb.amazonaws.com"
+const VANCOUVER_OSRM_URL = "https://osrm-vancouver-alb-61022380.us-east-1.elb.amazonaws.com"
 
 function defaultIcon(building) {
 	return new L.DivIcon({
