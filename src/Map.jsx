@@ -8,7 +8,7 @@ import L from "leaflet";
 import allRooms from "./rooms.js";
 import useSelectedRooms from "./SelectedRoomsContext";
 
-const VANCOUVER_OSRM_URL = "foo";
+const VANCOUVER_OSRM_URL = "https://osrm.ubc-campus-explorer.com"
 
 function defaultIcon(building) {
 	return new L.DivIcon({
