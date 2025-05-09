@@ -8,6 +8,8 @@ import L from "leaflet";
 import allRooms from "./rooms.js";
 import useSelectedRooms from "./SelectedRoomsContext";
 
+const VANCOUVER_OSRM_URL = "http://100.27.223.171:5000"
+
 function defaultIcon(building) {
 	return new L.DivIcon({
 		className: 'my-div-icon',
@@ -58,7 +60,7 @@ function MapInternal() {
 			createMarker: function () { return null; },
 			waypoints: coords,
 			router: L.Routing.osrmv1({
-				serviceUrl: 'https://routing.openstreetmap.de/routed-foot/route/v1', // i mean who uses a car to drive around campus lol
+				serviceUrl: `${VANCOUVER_OSRM_URL}/route/v1`, // i mean who uses a car to drive around campus lol
 			}),
 			fitSelectedRoutes: 'smart',
 		}).addTo(map);
