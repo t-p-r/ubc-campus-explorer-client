@@ -12,4 +12,4 @@ To set up the client ~(assume that you started the server earlier)~:
 
 You can also invoke `yarn dev` which will open up the development client at port 5173; this allows you to edit the code and view the changes in realtime.
 
-Currently live at: [https://ubc-campus-explorer.netlify.app/](https://ubc-campus-explorer.netlify.app/).
+Currently live at: [https://ubc-campus-explorer.com/](https://ubc-campus-explorer.com/).
