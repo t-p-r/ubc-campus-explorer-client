@@ -1,4 +1,4 @@
-FROM node:latest AS builder
+FROM node:slim AS builder
 
 WORKDIR /app
 
@@ -20,7 +20,7 @@ COPY tsconfig.node.json .
 RUN yarn install
 RUN yarn build
 
-FROM node:latest AS server
+FROM node:slim AS server
 
 WORKDIR /dist
 
