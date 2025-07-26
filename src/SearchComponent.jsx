@@ -59,6 +59,12 @@ export default function SearchComponent() {
 		[searchTerm, sortBy]
 	);
 
+	const lastPageFirstIndex = () => {
+		let result = Math.floor(sortedSearchRooms.length / DISPLAY_LIMIT) * DISPLAY_LIMIT;
+		if (result >= sortedSearchRooms.length) result -= DISPLAY_LIMIT;
+		return result;
+	}
+
 	return (
 		<Box>
 			<Box display="flex" alignItems="center" p={1} gap={1}>
@@ -118,15 +124,13 @@ export default function SearchComponent() {
 					() => setDisplayFrom(
 						displayFrom + DISPLAY_LIMIT < sortedSearchRooms.length
 							? displayFrom + DISPLAY_LIMIT
-							: sortedSearchRooms.length - (sortedSearchRooms.length % DISPLAY_LIMIT)
+							: lastPageFirstIndex()
 					)
 				)}
 
 				{changeDisplayButton(
 					`>>`,
-					() => setDisplayFrom(
-						Math.floor(sortedSearchRooms.length / DISPLAY_LIMIT) * DISPLAY_LIMIT
-					)
+					() => setDisplayFrom(lastPageFirstIndex())
 				)}
 			</Box>
 
