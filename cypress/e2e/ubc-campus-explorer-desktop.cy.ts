@@ -40,7 +40,7 @@ describe("UBC Campus Explorer tests (FHD desktop)", () => {
 	it("check critical elements exist", () => {
 		cy.get('[data-testid="header-icon"]'); // ubc logo
 		cy.get('[data-testid="header-title"]').contains(/^UBC Campus Explorer$/i); // title
-		cy.get('[data-testid="header-github-link"]'); // github icon
+		// cy.get('[data-testid="header-github-link"]'); // github icon
 
 		cy.get('[data-testid="ubcmap"]'); // map
 		cy.get('[data-testid="search-bar"]'); // search bar

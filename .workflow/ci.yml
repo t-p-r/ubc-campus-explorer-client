@@ -1,0 +1,38 @@
+name: CI - Cypress Tests
+
+on:
+  push:
+    branches: [main, server, serverless-ci]
+  pull_request:
+    branches: [main, server, serverless-ci]
+
+jobs:
+  cypress-tests:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        node: [16, 18, 20]
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js ${{ matrix.node }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Try building the project
+        run: yarn build
+
+      - name: Start the server
+        run: yarn preview &
+
+      - name: Wait for server to be ready
+        run: sleep 3
+
+      - name: Run Cypress tests
+        run: yarn cy:e2e:electron
