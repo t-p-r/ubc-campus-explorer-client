@@ -2,9 +2,9 @@ name: CI - Cypress Tests
 
 on:
   push:
-    branches: [main, server, serverless-ci]
+    branches: [main, serverless, serverless-ci]
   pull_request:
-    branches: [main, server, serverless-ci]
+    branches: [main, serverless, serverless-ci]
 
 jobs:
   cypress-tests:
